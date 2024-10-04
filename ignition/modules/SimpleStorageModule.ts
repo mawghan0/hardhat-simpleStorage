@@ -1,8 +1,8 @@
 // ignition/modules/SimpleStorageModule.js
 
-const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
+import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-module.exports = buildModule("SimpleStorageModule", (m) => {
+export default buildModule("SimpleStorageModule", (m) => {
   // Deploy the SimpleStorage contract
   const simpleStorage = m.contract("SimpleStorage");
 

@@ -1,16 +1,17 @@
-require("@nomicfoundation/hardhat-toolbox");
-require("hardhat-gas-reporter");
-require("dotenv").config();
-require("solidity-coverage");
+import "@nomicfoundation/hardhat-toolbox"
+import "hardhat-gas-reporter"
+import "solidity-coverage"
+import "dotenv/config";
+import { HardhatUserConfig } from "hardhat/config";
 
-const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL;
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
-const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
+const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL || "http://sepoliaExp";
+const PRIVATE_KEY = process.env.PRIVATE_KEY || "0xkey";
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "exp1Api1Key";
+const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "exp1cmc1api";
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
-module.exports = {
+const config: HardhatUserConfig = {
   networks: {
     sepolia: {
       url: `https://sepolia.infura.io/v3/${SEPOLIA_RPC_URL}`,
@@ -33,3 +34,5 @@ module.exports = {
     L1Etherscan: ETHERSCAN_API_KEY,
   },
 };
+
+export default config;

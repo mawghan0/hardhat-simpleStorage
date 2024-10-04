@@ -1,11 +1,12 @@
-const { ethers } = require("hardhat");
+import { ethers } from "hardhat";
+
 
 async function main() {
   const SimpleStorageFactory = await ethers.getContractFactory("SimpleStorage");
-  console.log("Deploying contract...")
+  console.log("Deploying contract...");
   const simpleStorage = await SimpleStorageFactory.deploy();
-  const transaction = await simpleStorage.deploymentTransaction();
-  console.log(`deployed by : ${transaction.address}`);
+  await simpleStorage.deployed();
+  console.log(`deployed by : ${simpleStorage.address}`);
 }
 
 main()
@@ -13,4 +14,4 @@ main()
   .catch((error) => {
     console.error(error);
     process.exit(1);
-  })
+  });

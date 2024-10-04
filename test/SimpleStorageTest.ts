@@ -1,24 +1,21 @@
-const { expect } = require("chai");
-const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
+import { expect } from "chai";
+import { SimpleStorage, SimpleStorage__factory } from "../typechain-types";
+import { ethers } from "hardhat";
 
 describe("SimpleStorage", function () {
-  let simpleStorage; // Variable to hold the deployed contract instance
+  let simpleStorage: SimpleStorage; // Variable to hold the deployed contract instance
 
   beforeEach(async function () {
-    // Deploy the SimpleStorage contract using Ignition
-    const module = buildModule("SimpleStorageModule", (m) => {
-      const simpleStorage = m.contract("SimpleStorage");
-      return { simpleStorage };
-    });
+    // Gunakan ethers untuk mendapatkan factory contract dan deploy SimpleStorage
+    const simpleStorageFactory = (await ethers.getContractFactory(
+      "SimpleStorage"
+    )) as SimpleStorage__factory;
+    
+    // Deploy kontrak
+    simpleStorage = (await simpleStorageFactory.deploy()) as SimpleStorage;
 
-    // Use hre.ignition.deploy() directly to deploy the module
-    const deployment = await hre.ignition.deploy(module);
-
-    // Save the deployed contract instance for use in tests
-    simpleStorage = deployment.simpleStorage;
-
-    // Ensure the contract is deployed
-    expect(simpleStorage).to.not.be.undefined;
+    // Tunggu sampai kontrak di-deploy
+    await simpleStorage.waitForDeployment();
   });
 
   it("Should start with a favorite number of 0", async function () {
